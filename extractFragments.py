@@ -133,7 +133,7 @@ def extractFromFile(input_file, output_file):
                 f_out_overall.write(write_string)
             
     f_out_overall.close()
-    print "Done"
+#    print "Done"
 
 
 

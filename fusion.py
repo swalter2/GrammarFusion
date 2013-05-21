@@ -18,7 +18,7 @@ def fusion(input1,input2):
 
 
     
-def fusion(input1, input2, output):
+def start_fusion(input1, input2, output):
     
 #if __name__ == "__main__":
 #    if len(sys.argv) <4:
