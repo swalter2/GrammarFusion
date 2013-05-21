@@ -5,7 +5,7 @@ import sys, subprocess
 
 if __name__ == "__main__":
     if len(sys.argv) <4:
-        print "python fusion.py input_BU input_TD groundtruth"
+        print "python start.py input_BU input_TD groundtruth"
         exit(1)
     else:
         input_BU = sys.argv[1]
