@@ -1,5 +1,5 @@
 from fusion import fusion 
-from extractFragments import extract
+from extractFragments import extractFromFile as extract
 import sys
 
 
