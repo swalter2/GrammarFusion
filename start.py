@@ -15,8 +15,9 @@ if __name__ == "__main__":
         
 #        Patterns from input_TD have to be extracted and mapped according to the groundtruth
         extract("bla","extracted")
+        
 #        evaluation perl .pl ground input_BU 1 1
-#        evaluation perl .pl ground input_TD 1 1
+#        evaluation perl .pl ground extracted 1 1
         
 #        create fusion
         fusion(input_BU,input_TD,"fusion_result")
