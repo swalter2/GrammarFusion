@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
         
 #        create fusion
-        fusion(input_BU,input_TD,"fusion_result")
+        fusion(input_BU,"extracted","fusion_result")
         print "Fusion of "+str(input_BU)+" and "+str(input_TD)+" is done"
         
 #        evaluation perl .pl ground input_BU 1 1
