@@ -1,5 +1,4 @@
 #This file creates a fusion of to sets of grammar fragments and returns a combination of it to a given file
-
 def fusion(input1,input2):
 #    More advanced fusion have to be add here
     f_in1 = open(input1,"r")

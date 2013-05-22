@@ -1,4 +1,5 @@
 import sys 
+from mapping import mapping
 
 
 def importENabnf():
@@ -135,11 +136,11 @@ def extractFromFile(input_file, output_file):
     f_out_overall.close()
 #    print "Done"
 
+    mapping(output_file,output_file)
 
 
 
 
-def mapping():
-    pass
+    
 
 
