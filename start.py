@@ -14,7 +14,7 @@ if __name__ == "__main__":
 #        input_BU can stay as it is
         
 #        Patterns from input_TD have to be extracted and mapped according to the groundtruth
-        extract(input_TD,"extracted")
+        extract(input_TD,"extracted",groundtruth)
         print "Extraction and mapping done"
         
 

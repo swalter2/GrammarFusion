@@ -29,7 +29,7 @@ def importENabnf():
 
 #First simple approach for extracting pattern from an input file and additionoly substitution of words, e.g. Los Angeles to <CITYNAME>
 
-def extractFromFile(input_file, output_file):
+def extractFromFile(input_file, output_file, groundtruthFile):
 #    if len(sys.argv) < 3:
 #        print "python extractFragments.py input.txt output.txt"
 #        exit(1)
@@ -121,7 +121,7 @@ def extractFromFile(input_file, output_file):
     for key in statement_overall:
         write_string=""
         if len(statement_overall[key]) > 0 and "statement" in key.lower():
-            write_string += key+": "
+            write_string += key+","
             for x in statement_overall[key]:
                 write_string += x+","
             write_string = write_string[:-1]
@@ -144,7 +144,7 @@ def extractFromFile(input_file, output_file):
     f_out_overall.close()
 #    print "Done"
 
-    mapping("extracted_tmp",output_file)
+    mapping("extracted_tmp",output_file,groundtruthFile)
 
 
 
