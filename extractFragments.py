@@ -39,7 +39,7 @@ def extractFromFile(input_file, output_file):
 #    output_file = sys.argv[2]
         
     f = open(input_file,"r")
-    f_out_overall = open(output_file,"w")
+    f_out_overall = open("extracted_tmp","w")
     
     counter_line = 0
     original_sentence = []
@@ -116,9 +116,11 @@ def extractFromFile(input_file, output_file):
             
                 
     #f_out.close()
+    
+#    First only accept statements
     for key in statement_overall:
         write_string=""
-        if len(statement_overall[key]) > 0:
+        if len(statement_overall[key]) > 0 and "statement" in key.lower():
             write_string += key+": "
             for x in statement_overall[key]:
                 write_string += x+","
@@ -127,6 +129,12 @@ def extractFromFile(input_file, output_file):
                 write_string = write_string.replace(", \",",",")
             write_string = write_string.replace("\", \",","\",")
             write_string = write_string.replace(":  \",", ": ")
+            write_string = write_string.replace(">: ,<",">: <")
+            write_string = write_string.replace(">: ,",">: ")
+            write_string = write_string.replace(",,",",")
+
+
+            
             if write_string.endswith(":  \""):
                 pass
             else:
@@ -136,7 +144,7 @@ def extractFromFile(input_file, output_file):
     f_out_overall.close()
 #    print "Done"
 
-    mapping(output_file,output_file)
+    mapping("extracted_tmp",output_file)
 
 
 
