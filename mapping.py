@@ -30,6 +30,7 @@ def optimiseSimpleMapping(extracted_file,groundtruthFile):
         line = line.replace("\n","")
         tmp = line.split(",")
         value = tmp[0]
+#        print ("line1",line)
         for x in tmp[1:]:
             inverse_hm[x] = value
     f_ground.close()
@@ -39,6 +40,8 @@ def optimiseSimpleMapping(extracted_file,groundtruthFile):
     for line in f_in:
         line = line.replace("\n","")
         tmp = line.split(",")
+#        print ("line2",line)
+
         value = tmp[0]
         for x in tmp[1:]:
 #            Take out two attributes out of x and check, in which values from inverse_hm this occurs
@@ -49,6 +52,14 @@ def optimiseSimpleMapping(extracted_file,groundtruthFile):
             if len(tmp)>1:
                 for key, value in inverse_hm.iteritems():
                     if tmp[0] in key and tmp[1]:
+                        if number_hm.has_key(value):
+                            tmp_int = number_hm[value]
+                            number_hm[value] = tmp_int + 1
+                        else:
+                            number_hm[value] = 1
+            elif len(tmp) == 1:
+                for key, value in inverse_hm.iteritems():
+                    if tmp[0] in key:
                         if number_hm.has_key(value):
                             tmp_int = number_hm[value]
                             number_hm[value] = tmp_int + 1
@@ -74,7 +85,7 @@ def optimiseSimpleMapping(extracted_file,groundtruthFile):
         if key == "":
             pass
         else:
-            print ("key",key)
+#            print ("key in mapping",key)
             returnstring+=key+"," 
             for x in hm[key]:
                 returnstring+=x+"," 
@@ -82,8 +93,10 @@ def optimiseSimpleMapping(extracted_file,groundtruthFile):
             returnstring += "\n"    
     
     
-    f_in.close()     
+    f_in.close()
+#    print ("returnstring",returnstring)   
     return returnstring
+
     
     
     
