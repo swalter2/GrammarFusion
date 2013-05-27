@@ -7,3 +7,9 @@ The used en.abnf for the travel domain is taken from https://sites.google.com/si
 
 Start with:
 python start.py input_BU input_TD groundtruth
+
+
+
+
+Dependencies:
+- pdflatex

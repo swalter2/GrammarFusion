@@ -27,10 +27,16 @@ if __name__ == "__main__":
         cmd = ["perl", "eval_metrics.pl", groundtruth, input_BU,"1","1"]
         pipe = subprocess.Popen(cmd,stdout=subprocess.PIPE)
         pipe.wait()
+        cmd = ["perl", "results2tex.pl", "evaluation_results/"+input_BU+".L1_1L2_1.results.csv"]
+        pipe = subprocess.Popen(cmd,stdout=subprocess.PIPE)
+        pipe.wait()
         print "Evaluation of "+str(input_BU)+ " done"
         
 #        evaluation perl .pl ground extracted 1 1
         cmd = ["perl", "eval_metrics.pl", groundtruth, "extracted","1","1"]
+        pipe = subprocess.Popen(cmd,stdout=subprocess.PIPE)
+        pipe.wait()
+        cmd = ["perl", "results2tex.pl", "evaluation_results/extracted.L1_1L2_1.results.csv"]
         pipe = subprocess.Popen(cmd,stdout=subprocess.PIPE)
         pipe.wait()
         print "Evaluation of the extracted fragments is done"
@@ -38,6 +44,9 @@ if __name__ == "__main__":
         
 #        evaluation perl .pl ground fusion 1 1
         cmd = ["perl", "eval_metrics.pl", groundtruth, "fusion_result","1","1"]
+        pipe = subprocess.Popen(cmd,stdout=subprocess.PIPE)
+        pipe.wait()
+        cmd = ["perl", "results2tex.pl", "evaluation_results/fusion_result.L1_1L2_1.results.csv"]
         pipe = subprocess.Popen(cmd,stdout=subprocess.PIPE)
         pipe.wait()
         print "Evaluation of the fused fragments is done"
