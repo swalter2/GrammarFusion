@@ -73,7 +73,6 @@ def extractFromFile(input_file, output_file, groundtruthFile):
 
                             except:
                                 pass
-                    print ("value",value)
                 if statement_overall.has_key(key):
                     t_s = statement_overall[key]
                     if value in t_s:
