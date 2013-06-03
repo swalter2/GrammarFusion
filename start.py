@@ -24,7 +24,7 @@ if __name__ == "__main__":
         print "Fusion of "+str(input_BU)+" and "+str(input_TD)+" is done"
         
 #        evaluation perl .pl ground input_BU 1 1
-        cmd = ["perl", "eval_metrics.pl", groundtruth, input_BU,"1","1"]
+        cmd = ["perl", "eval_metrics2.pl", groundtruth, input_BU,"1","1"]
         pipe = subprocess.Popen(cmd,stdout=subprocess.PIPE)
         pipe.wait()
         cmd = ["perl", "results2tex.pl", "evaluation_results/"+input_BU+".L1_1L2_1.results.csv"]
