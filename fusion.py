@@ -22,7 +22,7 @@ def fusion(input1,input2):
 def start_fusion(input1, input2, output):
 #Chose here the fusion strategy!
 #first input is augmented - do not change input here, but in the start.py
-#    cmd = ["perl", "augment_fusion.pl", input1, input2,output]
+#    cmd = ["perl", "augment_fusion.pl", input2, input1,output]
 #    pipe = subprocess.Popen(cmd,stdout=subprocess.PIPE)
 #    pipe.wait()
     

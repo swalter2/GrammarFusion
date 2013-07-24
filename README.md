@@ -9,7 +9,12 @@ Start with:
 python start.py input_BU input_TD groundtruth
 
 
+Fusion Strategies:
+============
+Currently two different fusion strategies are implemented.
+First a simple union of two grammars. And as second strategie, the augmention of one grammar with the other grammar.
 
 
 Dependencies:
+============
 - pdflatex
