@@ -1,0 +1,20 @@
+#ABNF 1.0 UTF-8;
+meta "grammar format" is "test";
+root $a;
+
+$Statement = ABNF grammars are so cool ;
+
+$a_1 = b 
+   | $Individual_2 [new york]
+   | [hello | huhu] world 
+   | a (b | $c and $d | rock'n'roll) ;
+
+public $Individual_2 = don't | don't | don't ;
+
+$c = $NULL ;
+
+$Statement_18 = [depart | leave] | [go] ;
+
+$Utterance_1 = do you have $Unknown_1
+               | (list | (give | show) me) $Unknown_1 
+               | (i1 | (i2 | i3)) ;

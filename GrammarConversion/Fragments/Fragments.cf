@@ -1,0 +1,13 @@
+
+Grammar  . Grammar  ::= [Def] ;
+Rule     . Def      ::= [Fragment] ;
+Fragment . Fragment ::= [Item] ;
+
+Terminal    . Item ::= Ident ;
+NonTerminal . Item ::= "<" Ident ">" ;
+
+
+terminator Def "." ;
+separator  Item "-" ;
+separator  Fragment "," ;
+
