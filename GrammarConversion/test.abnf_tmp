@@ -1,7 +1,9 @@
+$A = $B ;
+$B = $C ;
 $Individual_2 = don't | don't | don't ;
 $Statement = ABNF grammars are so cool ;
 $Statement_18 = depart | leave | go ;
-$Utterance_1 = do you have $Unknown_1 | $Unknown_1 | list $Unknown_1 | me $Unknown_1 | give me $Unknown_1 | show me $Unknown_1 ;
-$a_1 = b | $Individual_2 | $Individual_2 | new york | world | world | hello world | huhu world | a | b | $c and $d | rock'n'roll ;
+$Utterance_1 = do you have $Unknown_1 | list $Unknown_1 | give me $Unknown_1 | show me $Unknown_1 ;
+$a_1 = b | $Individual_2 | $Individual_2 | new york | hello world | huhu world | a | b | $c and $d | rock'n'roll ;
 $c = $NULL ;
 $nestedItems = i1 | i2 | i3 ;

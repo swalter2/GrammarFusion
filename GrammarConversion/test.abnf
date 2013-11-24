@@ -19,3 +19,6 @@ $Utterance_1 = do you have $Unknown_1
                | (list | (give | show) me) $Unknown_1 ;
 
 $nestedItems = (i1 | (i2 | i3)) ;
+
+$A = $B ;
+$B = $C ;
