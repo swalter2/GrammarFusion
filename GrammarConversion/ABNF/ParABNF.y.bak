@@ -61,7 +61,7 @@ LHS : Var { Internal $1 }
 
 
 Fragment :: { Fragment }
-Fragment : ListItem { Fragment $1 } 
+Fragment : ListItem { Fragment (reverse $1) } 
 
 
 Item :: { Item }
@@ -72,7 +72,7 @@ Item : Ident { Terminal $1 }
 
 
 Choice :: { Choice }
-Choice : ListItem { Choice $1 } 
+Choice : ListItem { Choice (reverse $1) } 
 
 
 Var :: { Var }
@@ -85,17 +85,19 @@ ListDef : {- empty -} { [] }
 
 
 ListItem :: { [Item] }
-ListItem : Item { (:[]) $1 } 
-  | Item ListItem { (:) $1 $2 }
+ListItem : {- empty -} { [] } 
+  | ListItem Item { flip (:) $1 $2 }
 
 
 ListFragment :: { [Fragment] }
-ListFragment : Fragment { (:[]) $1 } 
+ListFragment : {- empty -} { [] } 
+  | Fragment { (:[]) $1 }
   | Fragment '|' ListFragment { (:) $1 $3 }
 
 
 ListChoice :: { [Choice] }
-ListChoice : Choice { (:[]) $1 } 
+ListChoice : {- empty -} { [] } 
+  | Choice { (:[]) $1 }
   | Choice '|' ListChoice { (:) $1 $3 }
 
 

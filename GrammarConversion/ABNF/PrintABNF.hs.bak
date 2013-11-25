@@ -109,6 +109,7 @@ instance Print Fragment where
    Fragment items -> prPrec i 0 (concatD [prt 0 items])
 
   prtList es = case es of
+   [] -> (concatD [])
    [x] -> (concatD [prt 0 x])
    x:xs -> (concatD [prt 0 x , doc (showString "|") , prt 0 xs])
 
@@ -120,7 +121,7 @@ instance Print Item where
    Group choices -> prPrec i 0 (concatD [doc (showString "(") , prt 0 choices , doc (showString ")")])
 
   prtList es = case es of
-   [x] -> (concatD [prt 0 x])
+   [] -> (concatD [])
    x:xs -> (concatD [prt 0 x , prt 0 xs])
 
 instance Print Choice where
@@ -128,6 +129,7 @@ instance Print Choice where
    Choice items -> prPrec i 0 (concatD [prt 0 items])
 
   prtList es = case es of
+   [] -> (concatD [])
    [x] -> (concatD [prt 0 x])
    x:xs -> (concatD [prt 0 x , doc (showString "|") , prt 0 xs])
 
