@@ -11,7 +11,7 @@ $a_1 = b
 
 public $Individual_2 = don't | don't | don't ;
 
-$c = $NULL ;
+$c = $NULL | $A2 | $A3 ;
 
 $Statement_18 = [depart | leave] | [go] ;
 
@@ -20,5 +20,7 @@ $Utterance_1 = do you have $Unknown_1
 
 $nestedItems = (i1 | (i2 | i3)) ;
 
-$A = $B ;
-$B = $C ;
+$A1 = $B | $B | $B ;
+$A2 = $B | $B | $B ;
+$A3 = $B | $B ;
+

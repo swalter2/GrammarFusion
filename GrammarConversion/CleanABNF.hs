@@ -2,6 +2,7 @@ module CleanABNF where
 
 import AbsABNF
 
+import Data.List (nub)
 import Data.Map.Lazy as Hash hiding (map,filter,foldl)
 
 import Debug.Trace
@@ -10,7 +11,7 @@ import Debug.Trace
 {- Cleaning ABNF grammar -}
 
 cleanUp :: Grammar -> Grammar
-cleanUp (Grammar defs) = Grammar $ blowUp [] defs -- (contractAndFilter . blowUp []) defs
+cleanUp (Grammar defs) = Grammar $ (contractAndFilter . blowUp []) defs
 
 
 -- split rules containing options and groups into several rules
@@ -45,52 +46,62 @@ addItems :: [[Item]] -> [[Item]] -> [[Item]]
 addItems done [] = done 
 addItems done ((i:is):items) = addItems (expandItems done i is) items
 
-{-
+
 -- contract and filter
 
-contractAndFilter :: [Def] -> [Def]
-contractAndFilter defs = buildRules $ removeNonsense $ contract (buildHash empty defs) defs
+type RuleHash   = Hash.Map Var [Fragment]
+type RenameHash = Hash.Map Var Var
 
-buildHash :: Hash.Map Var [Fragment] -> [Def] -> Hash.Map Var [Fragment]
+contractAndFilter :: [Def] -> [Def]
+contractAndFilter defs = pipeline (buildHash empty defs)
+        where pipeline = buildRules . removeDuplicateRHSs . removeDuplicateLHSs . removeDuplicateRHSs
+
+buildHash :: RuleHash -> [Def] -> RuleHash
 buildHash hash [] = hash
 buildHash hash ((Header):defs) = buildHash hash defs
 buildHash hash ((Root _):defs) = buildHash hash defs
 buildHash hash ((Rule lhs frags):defs) = buildHash (updateHash hash lhs frags) defs
        where updateHash hash lhs frags = if member (var lhs) hash 
-	                                    then Hash.adjust (++frags) (var lhs) hash
+	                                        then Hash.adjust (++frags) (var lhs) hash
                                             else Hash.insert (var lhs) frags hash
 
-contract :: Hash.Map Var [Fragment] -> [Def] -> Hash.Map Var [Fragment]
-contract hash [] = hash 
-contract hash (def@(Rule lhs [Fragment [NonTerminal v]]):defs) = 
-  case Hash.lookup v hash of 
-             Just frags -> contract (Hash.insert v (hash ! v) hash) defs
-             Nothing    -> contract hash defs
-contract hash (def:defs) = contract hash defs
+removeDuplicateRHSs :: RuleHash -> RuleHash
+removeDuplicateRHSs hash = foldl blah hash (keys hash)  
 
-removeNonsense :: Hash.Map Var [Fragment] -> Hash.Map Var [Fragment]
-removeNonsense hash = foldl blah hash (keys hash)
-     where blah h k = case (filterFrags h [] (h ! k)) of 
-                            [] -> Hash.delete k h
-                            fs -> Hash.insert k fs h
--- TODO delete all keys never occur on any RHS
+blah :: RuleHash -> Var -> RuleHash
+blah hash var = adjust nub var hash
 
-filterFrags :: Hash.Map Var [Fragment] -> [Fragment] -> [Fragment] -> [Fragment]
-filterFrags _    keep [] = keep
-filterFrags hash keep ((Fragment []):fs) = filterFrags hash keep fs
-filterFrags hash keep ((Fragment is):fs) = filterFrags hash (keep++[Fragment (filter (noUndefinedNonTerminalIn hash) is)]) fs
+removeDuplicateLHSs :: RuleHash -> RuleHash
+removeDuplicateLHSs hash = foldl blubb hash (keys hash)
 
-noUndefinedNonTerminalIn :: Hash.Map Var [Fragment] -> Item -> Bool 
-noUndefinedNonTerminalIn hash (Terminal _)     = True 
-noUndefinedNonTerminalIn hash (NonTerminal v)  = Hash.member v hash
-noUndefinedNonTerminalIn hash (Option choices) = any (noUndefinedNonTerminalIn hash) $ concat $ map (\ (Choice is) -> is) choices
-noUndefinedNonTerminalIn hash (Group  choices) = any (noUndefinedNonTerminalIn hash) $ concat $ map (\ (Choice is) -> is) choices
+blubb :: RuleHash -> Var -> RuleHash
+blubb hash lhs = if member lhs hash 
+                    then let duplicates = [ lhs' | lhs' <- keys hash, lhs' /= lhs && (hash ! lhs') == (hash ! lhs) ]
+                             hashWithDuplicatesRemoved = foldl (flip delete) hash duplicates
+                         in  foldl (\ h v -> foldl (flip $ adjust (rename v lhs)) h (keys h)) hashWithDuplicatesRemoved duplicates 
+                 else hash
 
 var :: LHS -> Var
 var (Internal v) = v
 var (Public   v) = v
 
-buildRules :: Hash.Map Var [Fragment] -> [Def] 
+buildRules :: RuleHash -> [Def] 
 buildRules hash = map (\ k -> Rule (Internal k) (hash ! k)) (keys hash) 
 
--}
+-- renaming
+
+rename :: Var -> Var -> [Fragment] -> [Fragment]
+rename _   _   []  = []
+rename dup lhs fs = map (renameInFragment dup lhs) fs
+
+renameInFragment :: Var -> Var -> Fragment -> Fragment 
+renameInFragment _ _  (Fragment []) = Fragment []
+renameInFragment v v' (Fragment is) = Fragment (map (renameInItem v v') is)
+
+renameInItem :: Var -> Var -> Item -> Item 
+renameInItem (Var i1) (Var i2) (Terminal i) | i == i1   = Terminal i2
+                                            | otherwise = Terminal i   
+renameInItem v v' (NonTerminal var) | var == v  = NonTerminal v'
+                                    | otherwise = NonTerminal var
+renameInItem v v' (Option choices) = Option (map (\ (Choice is) -> Choice (map (renameInItem v v') is)) choices)
+renameInItem v v' (Group  choices) = Group  (map (\ (Choice is) -> Choice (map (renameInItem v v') is)) choices)
