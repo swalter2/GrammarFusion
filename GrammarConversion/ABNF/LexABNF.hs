@@ -187,13 +187,25 @@ alex_action_2 =  tok (\p s -> PT p (eitherResIdent (TV . share) s))
 -- -----------------------------------------------------------------------------
 -- INTERNALS and main scanner engine
 
-{-# LINE 35 "templates/GenericTemplate.hs" #-}
+{-# LINE 21 "templates/GenericTemplate.hs" #-}
 
-{-# LINE 45 "templates/GenericTemplate.hs" #-}
+
+
+
+
+-- Do not remove this comment. Required to fix CPP parsing when using GCC and a clang-compiled alex.
+#if __GLASGOW_HASKELL__ > 706
+#define GTE(n,m) (tagToEnum# (n >=# m))
+#define EQ(n,m) (tagToEnum# (n ==# m))
+#else
+#define GTE(n,m) (n >=# m)
+#define EQ(n,m) (n ==# m)
+#endif
+{-# LINE 51 "templates/GenericTemplate.hs" #-}
 
 
 data AlexAddr = AlexA# Addr#
-
+-- Do not remove this comment. Required to fix CPP parsing when using GCC and a clang-compiled alex.
 #if __GLASGOW_HASKELL__ < 503
 uncheckedShiftL# = shiftL#
 #endif
@@ -231,6 +243,7 @@ alexIndexInt32OffAddr (AlexA# arr) off =
 #else
   indexInt32OffAddr# arr off
 #endif
+
 
 
 
@@ -308,7 +321,7 @@ alex_scan_tkn user orig_input len input s last_acc =
                 offset = (base +# ord_c)
                 check  = alexIndexInt16OffAddr alex_check offset
 		
-                new_s = if (offset >=# 0#) && (check ==# ord_c)
+                new_s = if GTE(offset,0#) && EQ(check,ord_c)
 			  then alexIndexInt16OffAddr alex_table offset
 			  else alexIndexInt16OffAddr alex_deflt s
 	in
@@ -324,7 +337,7 @@ alex_scan_tkn user orig_input len input s last_acc =
 	check_accs (AlexAccNone) = last_acc
 	check_accs (AlexAcc a  ) = AlexLastAcc a input (I# (len))
 	check_accs (AlexAccSkip) = AlexLastSkip  input (I# (len))
-{-# LINE 191 "templates/GenericTemplate.hs" #-}
+{-# LINE 198 "templates/GenericTemplate.hs" #-}
 
 data AlexLastAcc a
   = AlexNone
@@ -340,7 +353,7 @@ data AlexAcc a user
   = AlexAccNone
   | AlexAcc a
   | AlexAccSkip
-{-# LINE 235 "templates/GenericTemplate.hs" #-}
+{-# LINE 242 "templates/GenericTemplate.hs" #-}
 
 -- used by wrappers
 iUnbox (I# (i)) = i

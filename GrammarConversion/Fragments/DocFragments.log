@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2013.7.24)  25 NOV 2013 16:41
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2013.7.24)  23 JAN 2014 13:47
 entering extended mode
  %&-line parsing enabled.
 **DocFragments.tex
@@ -119,4 +119,4 @@ Here is how much of TeX's memory you used:
  28 hyphenation exceptions out of 8191
  21i,9n,19p,381b,185s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on DocFragments.dvi (2 pages, 3744 bytes).
+Output written on DocFragments.dvi (2 pages, 3736 bytes).
