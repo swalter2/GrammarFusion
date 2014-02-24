@@ -1,0 +1,39 @@
+
+-- Grammar 
+
+Grammar . Grammar ::= [Def] ;
+
+
+-- Header 
+
+Header . Def ::= "#ABNF 1.0 UTF-8" ;
+Root   . Def ::= "root" Var ;
+
+
+-- Rules 
+
+Rule . Def ::= LHS "=" [Fragment] ;
+
+Internal . LHS ::= Var ; 
+Public   . LHS ::= "public" Var;
+
+Fragment . Fragment ::= [Item] ;
+
+-- Items and variables
+
+Terminal    . Item ::= Ident ;
+NonTerminal . Item ::= Var ;
+Option      . Item ::= "[" [Choice] "]" ;
+Group       . Item ::= "(" [Choice] ")" ;
+
+Choice. Choice ::= [Item] ;
+
+
+Var . Var ::= "$" Ident ;
+
+-- List definitions 
+
+terminator Def ";" ;
+terminator Item "" ;
+separator  Fragment "|" ;
+separator  Choice "|" ;

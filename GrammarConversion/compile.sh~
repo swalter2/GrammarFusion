@@ -1,8 +1,0 @@
-#!/bin/bash
-cd ABNF 
-bnfc -m -haskell ABNF.cf && make
-cd ../Fragments 
-bnfc -m -haskell Fragments.cf && make
-cd ..
-ghc -iABNF -iFragments --make Main.hs -o convert
-echo "Done."
