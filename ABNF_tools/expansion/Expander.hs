@@ -62,14 +62,14 @@ getCount c v = if member v c
 -- expand rules
 
 startContext = [""]
-limit        = 2
+limit        = 1
 
 expandRule :: RuleHash -> CountHash -> [ABNF.Fragment] -> [String]
 expandRule h c frags = nub $ map (toString " . ") $ recurse h c frags
 
 recurse :: RuleHash -> CountHash -> [ABNF.Fragment] -> [ABNF.Fragment] 
 recurse h c fs | stop      = filter onlyTerminals fs
-	           | otherwise = recurse h new_c (concat $ map fst step)
+               | otherwise = recurse h new_c (concat $ map fst step)
     where 
           vars  = concat $ map (collectVars [] . getItems) fs
           stop  = (all onlyTerminals fs) || (any (>limit) $ map (getCount c) vars)
@@ -116,7 +116,7 @@ isTerminal (Group  ((Choice is):cs)) = all isTerminal is && isTerminal (Group  c
 
 toString :: String -> ABNF.Fragment -> String 
 toString s (Fragment []) = s
-toString s (Fragment is) = foldl (++) s (map itemToString is)
+toString s (Fragment is) = let str = foldl (++) s (map itemToString is) in trace str $ str
 
 itemToString :: ABNF.Item -> String
 itemToString (Terminal         (Ident s))  = s ++ " "

@@ -4,6 +4,8 @@ import System.IO
 import System.Environment
 import System.Exit
 
+import Data.List (isInfixOf)
+
 import Parser 
 import CleanABNF
 import Expander
@@ -26,7 +28,7 @@ doExpand f = do
     content <- hGetContents handle
     out     <- return $ f ++ "_all"
     grammar <- return $ cleanUp $ parseABNF $ preprocess content
-    writeFile out $ foldl (++) "" $ filter (/= "") $ expand grammar
+    writeFile out $ foldl (++) "" $ filter ((/= "") || isInfixOf "NULL") $ expand grammar
     hClose handle
     putStrLn $ "Expansion written to: " ++ out
     exit
