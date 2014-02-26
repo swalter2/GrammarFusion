@@ -42,7 +42,7 @@ The symbols used in Fragments are the following: \\
 
 \begin{tabular}{lll}
 {\symb{{$<$}}} &{\symb{{$>$}}} &{\symb{.}} \\
-{\symb{{$-$}}} &{\symb{,}} & \\
+{\symb{ }} &{\symb{,}} & \\
 \end{tabular}\\
 
 \subsection*{Comments}
@@ -79,7 +79,7 @@ All other symbols are terminals.\\
 \begin{tabular}{lll}
 {\nonterminal{ListItem}} & {\arrow}  &{\emptyP} \\
  & {\delimit}  &{\nonterminal{Item}}  \\
- & {\delimit}  &{\nonterminal{Item}} {\terminal{{$-$}}} {\nonterminal{ListItem}}  \\
+ & {\delimit}  &{\nonterminal{Item}} {\terminal{ }} {\nonterminal{ListItem}}  \\
 \end{tabular}\\
 
 \begin{tabular}{lll}

@@ -8,6 +8,5 @@ NonTerminal . Item ::= "<" Ident ">" ;
 
 
 terminator Def "." ;
-separator  Item "-" ;
+separator  Item "" ;
 separator  Fragment "," ;
-

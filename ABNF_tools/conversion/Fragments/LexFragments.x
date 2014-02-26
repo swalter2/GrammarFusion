@@ -19,7 +19,7 @@ $i = [$l $d _ ']          -- identifier character
 $u = [\0-\255]          -- universal: any character
 
 @rsyms =    -- symbols and non-identifier-like reserved words
-   \< | \> | \. | \- | \,
+   \< | \> | \. | \,
 
 :-
 
@@ -80,7 +80,7 @@ eitherResIdent tv s = treeFind resWords
                               | s > a  = treeFind right
                               | s == a = t
 
-resWords = b "." 3 (b "-" 2 (b "," 1 N N) N) (b ">" 5 (b "<" 4 N N) N)
+resWords = b "<" 3 (b "." 2 (b "," 1 N N) N) (b ">" 4 N N)
    where b s n = let bs = id s
                   in B bs (TS bs n)
 

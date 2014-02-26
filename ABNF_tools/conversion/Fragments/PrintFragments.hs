@@ -112,7 +112,6 @@ instance Print Item where
 
   prtList es = case es of
    [] -> (concatD [])
-   [x] -> (concatD [prt 0 x])
-   x:xs -> (concatD [prt 0 x , doc (showString "-") , prt 0 xs])
+   x:xs -> (concatD [prt 0 x , prt 0 xs])
 
 

@@ -4,6 +4,7 @@ import AbsABNF      as ABNF
 import AbsFragments as Frag
 
 import Data.List (nub)
+import Data.Char (toUpper)
 
 
 
@@ -25,7 +26,7 @@ convertABNFFragments (ABNF.Fragment items) = Frag.Fragment (map convertABNFItem 
 
 convertABNFItem :: ABNF.Item -> Frag.Item
 convertABNFItem (ABNF.NonTerminal (ABNF.Var (ABNF.Ident s))) = Frag.NonTerminal $ Frag.Ident s
-convertABNFItem (ABNF.Terminal              (ABNF.Ident s))  = Frag.Terminal    $ Frag.Ident s
+convertABNFItem (ABNF.Terminal              (ABNF.Ident s))  = Frag.Terminal    $ Frag.Ident (map toUpper s)
 convertABNFItem _                                            = error "Oops."
 
 

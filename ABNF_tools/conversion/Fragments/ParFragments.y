@@ -22,10 +22,9 @@ import ErrM
 
 %token 
  ',' { PT _ (TS _ 1) }
- '-' { PT _ (TS _ 2) }
- '.' { PT _ (TS _ 3) }
- '<' { PT _ (TS _ 4) }
- '>' { PT _ (TS _ 5) }
+ '.' { PT _ (TS _ 2) }
+ '<' { PT _ (TS _ 3) }
+ '>' { PT _ (TS _ 4) }
 
 L_ident  { PT _ (TV $$) }
 L_err    { _ }
@@ -44,7 +43,7 @@ Def : ListFragment { Rule $1 }
 
 
 Fragment :: { Fragment }
-Fragment : ListItem { Fragment $1 } 
+Fragment : ListItem { Fragment (reverse $1) } 
 
 
 Item :: { Item }
@@ -59,8 +58,7 @@ ListDef : {- empty -} { [] }
 
 ListItem :: { [Item] }
 ListItem : {- empty -} { [] } 
-  | Item { (:[]) $1 }
-  | Item '-' ListItem { (:) $1 $3 }
+  | ListItem Item { flip (:) $1 $2 }
 
 
 ListFragment :: { [Fragment] }

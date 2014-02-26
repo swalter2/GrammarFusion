@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2013.7.24)  23 JAN 2014 13:47
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2013.7.24)  26 FEB 2014 16:11
 entering extended mode
  %&-line parsing enabled.
 **DocFragments.tex
@@ -100,12 +100,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 74--78
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 79--84
+Underfull \hbox (badness 10000) in paragraph at lines 79--83
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 85--90
+Underfull \hbox (badness 10000) in paragraph at lines 84--89
 
  []
 
@@ -113,10 +113,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 85--90
 Here is how much of TeX's memory you used:
  245 strings out of 495022
  2670 string characters out of 1181058
- 51256 words of memory out of 3000000
+ 50256 words of memory out of 3000000
  3511 multiletter control sequences out of 15000+50000
  9370 words of font info for 33 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  21i,9n,19p,381b,185s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on DocFragments.dvi (2 pages, 3736 bytes).
+Output written on DocFragments.dvi (2 pages, 3684 bytes).
